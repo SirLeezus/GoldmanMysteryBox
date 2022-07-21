@@ -1,0 +1,10 @@
+name: GoldmanMysteryBox
+version: '${project.version}'
+main: lee.code.mb.GoldmanMysteryBox
+api-version: 1.19
+depend: [GoldmanCore]
+commands:
+  givemysterybox:
+    description: Gives mystery boxes to target.
+    permission: mysterybox.command.givemysterybox
+    usage: "/givemysterybox &f{palyer} {amount}"
