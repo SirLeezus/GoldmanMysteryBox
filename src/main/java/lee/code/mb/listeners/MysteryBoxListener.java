@@ -8,7 +8,10 @@ import lee.code.mb.menusystem.menu.MysteryBoxMenu;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.UUID;
@@ -31,6 +34,22 @@ public class MysteryBoxListener implements Listener {
                     BukkitUtils.removePlayerItems(player, handItem, 1, true);
                     new MysteryBoxMenu(data.getPlayerMU(uuid)).open();
                 } else player.sendMessage(Lang.PREFIX.getComponent(null).append(Lang.ERROR_USING_BOX.getComponent(null)));
+            }
+        }
+    }
+
+    @EventHandler
+    public void onAnvilRenameDeny(InventoryClickEvent e) {
+        if (e.getInventory() instanceof AnvilInventory anvilInventory) {
+            if (e.getSlotType() != InventoryType.SlotType.RESULT) return;
+            ItemStack[] contents = anvilInventory.getContents();
+            ItemStack firstSlot = contents[0];
+            if (firstSlot!= null) {
+                if (firstSlot.getItemMeta().hasCustomModelData()) {
+                    if (firstSlot.getItemMeta().getCustomModelData() == 1337) {
+                        e.setCancelled(true);
+                    }
+                }
             }
         }
     }
